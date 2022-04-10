@@ -53,4 +53,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0-rc01'
 
+    //for login
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
+
 }
