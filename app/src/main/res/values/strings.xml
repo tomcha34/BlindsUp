@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Blinds Up</string>
+    <string name="start_a_new_tournament">Start a new tournament</string>
+    <string name="use_a_saved_tournament">Use a saved tournament</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign-Up</string>
+    <string name="blinds_up_logo">Blinds Up logo</string>
+    <string name="create_your_tournament">Create Your Tournament!</string>
+    <string name="what_are_we_calling_this">What Are We Calling This?</string>
+    <string name="tournament_nickname">Tournament Nickname</string>
+    <string name="how_long_are_the_blind_levels">How Long Are The Blind Levels?</string>
+    <string name="blind_levels_in_minutes">Blind Levels (in minutes)</string>
+    <string name="what_is_the_starting_stack">What Is The Starting Stack?</string>
+    <string name="players_starting_stack_e_g_5000">Players starting stack (e.g. 5000)</string>
+    <string name="what_is_the_smallest_chip">What Is The Smallest Chip?</string>
+    <string name="smallest_demonination_e_g_1">Smallest denomination (e.g. 1)</string>
+    <string name="using_antes">Using Antes?</string>
+    <string name="button">Button</string>
+    <string name="confirm_your_password">Confirm Your Password</string>
+    <string name="current_level_1">Current Level: 1</string>
+    <string name="blinds_25_50">Blinds: 25/50</string>
+    <string name="next_level_2">Next Level: 2</string>
+    <string name="blinds_50_100">Next Blinds: 50/100</string>
+    <string name="time_left_in_level">Time Left In Level</string>
+    <string name="_0_00">0:00</string>
+    <string name="end_tournament">End Tournament</string>
+    <string name="pause_tournament">Pause Tournament</string>
+    <string name="enter_your_username">Enter Your Username</string>
+    <string name="enter_your_password">Enter Your Password</string>
+    <string name="create_tournament">Create Tournament</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+</resources>

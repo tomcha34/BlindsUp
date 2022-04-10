@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".ui.tournamentRunning.TournamentRunningActivity">
+
+<!--    <data>-->
+
+<!--        <variable-->
+<!--            name="tournamentRunningViewModel"-->
+<!--            type="com.mdev.blindsup.ui.tournamentRunning.TournamentRunningViewModel" />-->
+<!--    </data>-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/timeLeftTextView">
+
+            <TextView
+                android:id="@+id/currentLevelTextView"
+                style="@style/blind_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/current_level_1"
+                android:textColor="#000000"
+                android:textSize="34sp" />
+
+            <TextView
+                android:id="@+id/currentBlindsTextView"
+                style="@style/blind_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/blinds_25_50"
+                android:textColor="#000000"
+                android:textSize="34sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="409dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/pauseResumeButton"
+            app:layout_constraintEnd_toEndOf="@+id/pauseResumeButton"
+            app:layout_constraintStart_toStartOf="@+id/pauseResumeButton"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+            <TextView
+                android:id="@+id/nextLevelTextView"
+                style="@style/blind_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/next_level_2"
+                android:textSize="34sp" />
+
+            <TextView
+                android:id="@+id/nextBlindsTextView"
+                style="@style/blind_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/blinds_50_100"
+                android:textSize="34sp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/titleTimeTextView"
+            app:layout_constraintEnd_toEndOf="@+id/titleTimeTextView"
+            app:layout_constraintStart_toStartOf="@+id/titleTimeTextView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/blindsup_logo_one"
+            android:contentDescription="@string/blinds_up_logo" />
+
+        <TextView
+            android:id="@+id/titleTimeTextView"
+            style="@style/blind_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/time_left_in_level"
+            android:textColor="#000000"
+            android:textSize="40sp"
+            app:layout_constraintBottom_toTopOf="@+id/timeLeftTextView"
+            app:layout_constraintEnd_toEndOf="@+id/timeLeftTextView"
+            app:layout_constraintStart_toStartOf="@+id/timeLeftTextView"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+        <TextView
+            android:id="@+id/timeLeftTextView"
+            style="@style/blind_text_style"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:paddingEnd="8dp"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="72sp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout"
+            app:layout_constraintTop_toBottomOf="@+id/titleTimeTextView" />
+<!--        app:elapsedTime="@{tournamentRunningViewModel.elapsedTime}"-->
+        <Button
+            android:id="@+id/endTournamentButton"
+            style="@style/blind_button_style"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:text="@string/end_tournament"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pauseResumeButton" />
+
+        <Button
+            android:id="@+id/pauseResumeButton"
+            style="@style/blind_button_style"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:text="@string/pause_tournament"
+            app:layout_constraintBottom_toTopOf="@+id/endTournamentButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

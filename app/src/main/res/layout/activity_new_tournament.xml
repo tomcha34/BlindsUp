@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".ui.newTournament.NewTournamentActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/titleTextView"
+            style="@style/blind_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/create_your_tournament"
+            android:textColor="#000000"
+            android:textSize="28sp"
+            app:layout_constraintBottom_toTopOf="@+id/nicknameInputLayout"
+            app:layout_constraintEnd_toEndOf="@+id/nicknameInputLayout"
+            app:layout_constraintStart_toStartOf="@+id/nicknameInputLayout"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/subtitle1Textview"
+            style="@style/blind_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="@string/what_are_we_calling_this"
+            app:layout_constraintBottom_toTopOf="@+id/nicknameInputLayout"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nicknameInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:hint="@string/tournament_nickname"
+            app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+            app:layout_constraintBottom_toTopOf="@+id/blindLevelInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleTextView">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/nicknameEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/subtitle2TextView"
+            style="@style/blind_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="@string/how_long_are_the_blind_levels"
+            app:layout_constraintBottom_toTopOf="@+id/blindLevelInputLayout"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/blindLevelInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:hint="@string/blind_levels_in_minutes"
+            app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+            app:layout_constraintBottom_toTopOf="@+id/startingStackInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nicknameInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/blindLevelEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/subtitle3Textview"
+            style="@style/blind_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="@string/what_is_the_starting_stack"
+            app:layout_constraintBottom_toTopOf="@+id/startingStackInputLayout"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/startingStackInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:hint="@string/players_starting_stack_e_g_5000"
+            app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+            app:layout_constraintBottom_toTopOf="@+id/smallestChipInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/blindLevelInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/startingStackEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/subtitle4TextView"
+            style="@style/blind_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:text="@string/what_is_the_smallest_chip"
+            app:layout_constraintBottom_toTopOf="@+id/smallestChipInputLayout"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/smallestChipInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:hint="@string/smallest_demonination_e_g_1"
+            app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
+            app:layout_constraintBottom_toTopOf="@+id/createTournamentButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/startingStackInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/smalledChipEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/anteCheckBox"
+            style="@style/blind_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/using_antes"
+            app:buttonTint="@color/mtrl_textinput_default_box_stroke_color"
+            app:layout_constraintBottom_toTopOf="@+id/createTournamentButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/smallestChipInputLayout" />
+
+        <Button
+            android:id="@+id/createTournamentButton"
+            style="@style/blind_button_style"
+            android:layout_width="0dp"
+            android:layout_height="72dp"
+            android:text="@string/create_tournament"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/smallestChipInputLayout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
