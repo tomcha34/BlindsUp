@@ -11,4 +11,4 @@ class BlindLevels {
 
 }
 
-data class Level(val smallBlind: Int, val bigBlind: Int, val ante: Int)
+data class Level( val smallBlind: Int, val bigBlind: Int, val ante: Int)

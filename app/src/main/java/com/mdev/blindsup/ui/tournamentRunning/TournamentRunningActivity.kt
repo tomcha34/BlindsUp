@@ -24,15 +24,14 @@ class TournamentRunningActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_tournament_running)
         createChannel()
         val runningViewModel = ViewModelProvider(this).get(
-            TournamentRunningViewModel::class.java
-        )
-       //binding.tournamentRunningViewModel = runningViewModel
+            TournamentRunningViewModel::class.java)
 
-        runningViewModel.elapsedTime.observe(this, Observer {
+        val id = intent.getStringExtra("tournamentDetails")
+        runningViewModel.fetchBlinds(id!!, this)
 
+        runningViewModel.elapsedTime.observe(this, {
             binding.timeLeftTextView.text = it.toString()
             binding.timeLeftTextView.setElapsedTime(it)
-
         })
 
         runningViewModel.smallBlind.observe(this, {
@@ -40,7 +39,6 @@ class TournamentRunningActivity : AppCompatActivity() {
             runningViewModel.bigBlind.observe(this, {
                 binding.currentBlindsTextView.text = "Blinds: $small/$it"
             })
-
         })
 
         runningViewModel.nextSmallBlind.observe(this, {
@@ -48,7 +46,6 @@ class TournamentRunningActivity : AppCompatActivity() {
             runningViewModel.nextBigBlind.observe(this, {
                 binding.nextBlindsTextView.text = "Blinds: $nextSmall/$it"
             })
-
         })
 
         runningViewModel.currentLevel.observe(this, {
@@ -60,59 +57,17 @@ class TournamentRunningActivity : AppCompatActivity() {
         })
 
 
-
-       // binding.currentBlindsTextView.text = "Blinds $small/$big"
-
-
-
-
-
-
-
-
-
-//        val triggerTime = SystemClock.elapsedRealtime() + 1_000L * 110
-//        // println(time)
-//      //  println(_elapsedTime.value)
-//       val timer = object : CountDownTimer(triggerTime, 1_000L) {
-//            override fun onTick(p0: Long) {
-//                val time = triggerTime - SystemClock.elapsedRealtime()
-//                val seconds = time / 1000
-//                binding.timeLeftTextView.text = runningViewModel.elapsedTime.toString()
-//                //  println(elapsedTime)
-//                if (time <= 0) {
-//                   // resetTimer()
-//                }
-//            }
-//
-//            override fun onFinish() {
-//              //  resetTimer()
-//            }
-//        }
-//        timer.start()
-
-
         binding.pauseResumeButton.setOnClickListener {
             runningViewModel.beginTimer()
-//            binding.timeLeftTextView.text = runningViewModel.elapsedTime.toString()
         }
-//        val seconds = runningViewModel.elapsedTime.value
-//        if (seconds != null){
-//            binding.timeLeftTextView.setElapsedTime(seconds!!)
-//            println(seconds)
-//        }
-//        else {
-//            binding.timeLeftTextView.setElapsedTime(60000L)
-//        }
 
         binding.endTournamentButton.setOnClickListener {
             startActivity(Intent(this, HomeActivity::class.java))
 
-
         }
 
-
     }
+
     fun createChannel() {
         val NOTIFICATION_ID = 234
         val notificationManager =
@@ -132,10 +87,8 @@ class TournamentRunningActivity : AppCompatActivity() {
             mChannel.setShowBadge(false)
             notificationManager.createNotificationChannel(mChannel)
         }
-
-
-
     }
+
     fun TextView.setElapsedTime(value: Long) {
         val seconds = value / 1000
         text = if (seconds < 60) seconds.toString() else DateUtils.formatElapsedTime(seconds)
