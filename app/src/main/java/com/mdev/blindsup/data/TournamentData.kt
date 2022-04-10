@@ -1,3 +1,3 @@
 package com.mdev.blindsup.data
 
-data class TournamentData(val name: String, val blindLength: Long, val startingStack: Int, val smallestChip: Int)
+data class TournamentData(var id: String? = "", val name: String = "", val blindLength: Long = 0, val startingStack: Int = 0, val smallestChip: Int = 0)

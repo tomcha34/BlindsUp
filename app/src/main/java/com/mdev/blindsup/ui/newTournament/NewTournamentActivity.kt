@@ -43,9 +43,12 @@ class NewTournamentActivity : AppCompatActivity() {
                         binding.nicknameEditText.text.toString(),
                         binding.blindLevelEditText.text.toString().toLong(),
                         binding.startingStackEditText.text.toString().toInt(),
-                        binding.smalledChipEditText.text.toString().toInt()
+                        binding.smalledChipEditText.text.toString().toInt(),
+                        this
                     )
-                    startActivity(Intent(this, TournamentRunningActivity::class.java))
+                    val intent = Intent(this, TournamentRunningActivity::class.java)
+                    intent.putExtra("tournamentDetails", newTournamentViewModel.id)
+                    startActivity(intent)
                 }
             }
 

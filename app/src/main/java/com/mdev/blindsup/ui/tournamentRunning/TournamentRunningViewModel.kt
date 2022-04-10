@@ -7,14 +7,22 @@ import android.content.Context
 import android.content.Intent
 import android.os.CountDownTimer
 import android.os.SystemClock
-import androidx.core.app.AlarmManagerCompat
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.ktx.Firebase
 import com.mdev.blindsup.data.BlindLevels
+import com.mdev.blindsup.data.TournamentData
 import com.mdev.blindsup.receiver.AlarmReceiver
-import kotlinx.coroutines.launch
+
+private const val TAG = "TournamentRunningViewMo"
 
 class TournamentRunningViewModel(private val app: Application) : AndroidViewModel(app) {
 
@@ -26,8 +34,10 @@ class TournamentRunningViewModel(private val app: Application) : AndroidViewMode
     private var isPaused = false
     private var isNew = true
     private var millisecondLeft = 0L
-    private val userSmallBlind = 25
-    private val userBigBlind = 50
+    private var userSmallBlind = 25
+    private var userBigBlind = 50
+    var userTimeSelection = 0L
+    private var blindsList = mutableListOf<TournamentData>()
     private val notificationIntent = Intent(app, AlarmReceiver::class.java)
     private var pendingIntent: PendingIntent = PendingIntent.getBroadcast(
         getApplication(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT
@@ -67,14 +77,65 @@ class TournamentRunningViewModel(private val app: Application) : AndroidViewMode
 
     init {
 
-        _elapsedTime.value = second * 10
-        _smallBlind.value = userSmallBlind
-        _bigBlind.value = userBigBlind
+//        _elapsedTime.value = second * 10
+//        _smallBlind.value = userSmallBlind
+//        _bigBlind.value = userBigBlind
         _nextSmallBlind.value = userSmallBlind * 2
         _nextBigBlind.value = userBigBlind * 2
         _currentLevel.value = position + 1
         _nextLevel.value = position + 2
 
+
+    }
+
+    fun fetchBlinds(id: String, context: Context) {
+        if (id.length > 1) {
+            //  println("longer than one")
+            val acct = GoogleSignIn.getLastSignedInAccount(context)
+
+            val auth = Firebase.auth
+            if (auth.currentUser != null) {
+                val databaseBlinds =
+                    FirebaseDatabase.getInstance().getReference("Users/${acct.id}/Blinds")
+
+                databaseBlinds.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            for (blindsSnapshot in snapshot.children) {
+                                var userBlinds = blindsSnapshot.getValue(TournamentData::class.java)
+                                userBlinds?.id = blindsSnapshot.key
+
+
+                                if (userBlinds != null) {
+
+                                    blindsList.add(userBlinds)
+                                    println("added one $userBlinds")
+                                }
+                            }
+                            for (blinds in blindsList) {
+                                if (blinds.id == id) {
+                                    print("this is the one $blinds")
+                                    userTimeSelection = blinds.blindLength * minute
+                                    _elapsedTime.value = userTimeSelection
+                                    _smallBlind.value = blinds.smallestChip
+                                    _bigBlind.value = blinds.smallestChip * 2
+                                    _nextSmallBlind.value = blinds.smallestChip * 2
+                                    _nextBigBlind.value = blinds.smallestChip * 4
+                                }
+                            }
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.e(TAG, "onCancelled: error")
+                    }
+                })
+            }
+        } else {
+            _elapsedTime.value = second * 10
+            _smallBlind.value = userSmallBlind
+            _bigBlind.value = userBigBlind
+        }
     }
 
 
@@ -102,7 +163,8 @@ class TournamentRunningViewModel(private val app: Application) : AndroidViewMode
 //        if (isNew) {
 //            isNew = false
 
-        val triggerTime = SystemClock.elapsedRealtime() + second * 10
+
+        val triggerTime = SystemClock.elapsedRealtime() + userTimeSelection
         // println(time)
         println(_elapsedTime.value)
         timer = object : CountDownTimer(triggerTime, second) {
