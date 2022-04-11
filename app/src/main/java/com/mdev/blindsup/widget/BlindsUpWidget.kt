@@ -6,9 +6,12 @@ import android.content.Context
 import android.os.CountDownTimer
 import android.os.SystemClock
 import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.RemoteViews
 import androidx.lifecycle.ViewModelProvider
 import com.mdev.blindsup.R
+import com.mdev.blindsup.notifications.BlindNotification
 import com.mdev.blindsup.ui.tournamentRunning.TournamentRunningViewModel
 
 /**
@@ -48,20 +51,65 @@ internal fun updateAppWidget(
     //views.setTextViewText(R.id.appwidget_text, widgetText)
 
 
+var position = 0
+    var _smallBlind = 25
+    var _bigBlind = 50
+    var _nextBigBlind = 100
+    var _nextSmallBlind = 50
+    var timer : CountDownTimer
+    var _currentLevel = 1
+    var _nextLevel = 2
+    var triggerTime = SystemClock.elapsedRealtime() + 60_000L
+
+    views.setTextViewText(R.id.actualtimer, triggerTime.toString())
+
+    fun createTimer(view: View) {
 
 
+//        if (isNew) {
+//            isNew = false
 
-    val timer = object : CountDownTimer(10_000L, 1_000L){
-        override fun onTick(p0: Long) {
-            views.setTextViewText(R.id.actualtimer, SystemClock.elapsedRealtime().toString())
+
+//        val triggerTime = SystemClock.elapsedRealtime() + userTimeSelection
+
+        // println(time)
+
+        timer = object : CountDownTimer(triggerTime, 1_000L) {
+            override fun onTick(p0: Long) {
+                triggerTime = triggerTime - SystemClock.elapsedRealtime()
+                //  millisecondLeft = _elapsedTime.value!!
+                //  println(elapsedTime)
+                if (triggerTime <= 0) {
+                //    resetTimer()
+                }
+            }
+
+            override fun onFinish() {
+              //  resetTimer()
+
+            }
         }
-
-        override fun onFinish() {
-            Log.e("Tag", "ended")
-        }
-
+        timer.start()
     }
-    timer.start()
+
+    fun resetTimer() {
+
+        position++
+        _smallBlind *= 2
+        _bigBlind *= 2
+        _nextSmallBlind = _smallBlind * 2
+        _nextBigBlind = _bigBlind * 2
+        _currentLevel = position + 1
+        _nextLevel = position + 2
+       // timer.cancel()
+
+        BlindNotification().triggerNotification(
+            "Blinds are now ${_smallBlind}/${_bigBlind}",
+            context
+        )
+     //   createTimer()
+    }
+
 
 
 

@@ -5,8 +5,8 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-    <string name="login">Login</string>
-    <string name="sign_up">Sign-Up</string>
+    <string name="login">Login with Google</string>
+    <string name="sign_up">Skip Login</string>
     <string name="blinds_up_logo">Blinds Up logo</string>
     <string name="create_your_tournament">Create Your Tournament!</string>
     <string name="what_are_we_calling_this">What Are We Calling This?</string>

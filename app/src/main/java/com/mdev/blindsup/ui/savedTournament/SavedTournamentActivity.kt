@@ -19,14 +19,26 @@ import com.mdev.blindsup.ui.tournamentRunning.TournamentRunningActivity
 
 class SavedTournamentActivity : AppCompatActivity(), SavedTournamentAdapter.OnItemClickListener {
     private lateinit var binding: ActivitySavedTournamentBinding
+
+    //Creating a global instance of our custom adapter
     val adapter = SavedTournamentAdapter(this, this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //initializing the binding utility
         binding = DataBindingUtil.setContentView(this, R.layout.activity_saved_tournament)
 
+        //Getting an instance of the viewModel via ViewModelProvider
         val savedViewModel = ViewModelProvider(this).get(SavedTournamentViewModel::class.java)
+
+        //setting the adapter to our recyclerView
         binding.recyclerview.adapter = adapter
+
+        //Calling our custom adapters setData function to populate the tournaments
         adapter.setBlindData(savedViewModel.blinds.value!!)
+        //The tournament data is livedata in the ViewModel, we will observe it
+        //and once it loads, populate it on the screen
         savedViewModel.blinds.observe(this, {
             adapter.setBlindData(it)
         })
@@ -34,6 +46,7 @@ class SavedTournamentActivity : AppCompatActivity(), SavedTournamentAdapter.OnIt
 
 
 
+        //A button to create a new tournament
         binding.floatingActionButton.setOnClickListener {
         startActivity(Intent(this, NewTournamentActivity::class.java))
 
@@ -41,56 +54,9 @@ class SavedTournamentActivity : AppCompatActivity(), SavedTournamentAdapter.OnIt
     }
 
     override fun onItemClick(position: Int) {
-//        val builder: AlertDialog.Builder =
-//            AlertDialog.Builder(this)
-//        builder.setTitle("Delete Session")
-//        builder.setMessage("Are you sure you want to delete this session? This cannot be undone")
-//
-//        builder.setPositiveButton(
-//            Html.fromHtml("<font color='#FFFFFF'>Yes</font>")
-//        ) { dialog, which -> // Do nothing but close the dialog
-//            val position = viewHolder?.adapterPosition
-//
-//            //Getting the path of the session to delete
-//            val sessionToDelete = sessionList[position!!].id
-//
-//            //deleting the session
-//            if (sessionToDelete != null) {
-//                databasePoker.child(sessionToDelete).removeValue()
-//            }
-//            sessionList.removeAt(position)
-//            recyclerView.adapter!!.notifyItemRemoved(position)
-//            val snack = Snackbar.make(fabButton, "Session successfully deleted", Snackbar.LENGTH_SHORT)
-//            snack.setBackgroundTint(resources.getColor(com.google.firebase.database.R.color.black))
-//            snack.setTextColor(resources.getColor(com.google.firebase.database.R.color.white))
-//            snack.show()
-//
-//
-//            dialog.dismiss()
-//
-//        }
-//
-//        builder.setOnCancelListener {
-//            val position = viewHolder?.adapterPosition
-//            if (position != null) {
-//                recyclerView.adapter!!.notifyItemChanged(position)
-//            }
-//        }
-//
-//        builder.setNegativeButton(
-//            Html.fromHtml("<font color='#FFFFFF'>NO</font>"),
-//            DialogInterface.OnClickListener { dialog, which ->
-//                val position = viewHolder?.adapterPosition
-//                if (position != null) {
-//                    recyclerView.adapter!!.notifyItemChanged(position)
-//                }
-//
-//                dialog.dismiss()
-//            })
-//
-//        val alert: AlertDialog = builder.create()
-//        alert.show()
+        //create an intent to navigate to the RunningTournamentActivity
         val intent = Intent(this, TournamentRunningActivity::class.java)
+        //Add an intentExtra to pass the position clicked so we know which tournament to load.
         intent.putExtra(Constants().SAVED_SELECTION, position)
         startActivity(intent)
     }
