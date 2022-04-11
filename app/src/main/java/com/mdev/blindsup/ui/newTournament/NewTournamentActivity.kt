@@ -7,6 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.mdev.blindsup.R
 import com.mdev.blindsup.databinding.ActivityNewTournamentBinding
+import com.mdev.blindsup.ui.savedTournament.SavedTournamentActivity
 import com.mdev.blindsup.ui.tournamentRunning.TournamentRunningActivity
 
 class NewTournamentActivity : AppCompatActivity() {
@@ -46,8 +47,7 @@ class NewTournamentActivity : AppCompatActivity() {
                         binding.smalledChipEditText.text.toString().toInt(),
                         this
                     )
-                    val intent = Intent(this, TournamentRunningActivity::class.java)
-                    intent.putExtra("tournamentDetails", newTournamentViewModel.id)
+                    val intent = Intent(this, SavedTournamentActivity::class.java)
                     startActivity(intent)
                 }
             }
