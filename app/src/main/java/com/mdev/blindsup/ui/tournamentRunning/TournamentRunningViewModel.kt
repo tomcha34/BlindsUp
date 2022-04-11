@@ -256,5 +256,11 @@ class TournamentRunningViewModel(private val app: Application) : AndroidViewMode
         }
         timer.start()
     }
+
+    fun endTournament() {
+        if (!isNew) {
+            timer.cancel()
+        }
+    }
 }
 
