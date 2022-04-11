@@ -14,8 +14,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.mdev.blindsup.R
+import com.mdev.blindsup.data.Constants
 import com.mdev.blindsup.databinding.ActivityTournamentRunningBinding
 import com.mdev.blindsup.ui.home.HomeActivity
+import kotlin.concurrent.timer
 
 class TournamentRunningActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTournamentRunningBinding
@@ -26,12 +28,19 @@ class TournamentRunningActivity : AppCompatActivity() {
         val runningViewModel = ViewModelProvider(this).get(
             TournamentRunningViewModel::class.java)
 
-        val id = intent.getStringExtra("tournamentDetails")
-        runningViewModel.fetchBlinds(id!!, this)
+//        val id = intent.getStringExtra("tournamentDetails")
+//        runningViewModel.fetchBlinds(id!!, this)
 
+
+        val savedTournament = intent.getIntExtra(Constants().SAVED_SELECTION, 0)
+        runningViewModel.fetchSavedData(savedTournament, this)
         runningViewModel.elapsedTime.observe(this, {
             binding.timeLeftTextView.text = it.toString()
             binding.timeLeftTextView.setElapsedTime(it)
+        })
+
+        runningViewModel.pauseText.observe(this, {
+            binding.pauseResumeButton.text = it
         })
 
         runningViewModel.smallBlind.observe(this, {
@@ -58,10 +67,11 @@ class TournamentRunningActivity : AppCompatActivity() {
 
 
         binding.pauseResumeButton.setOnClickListener {
-            runningViewModel.beginTimer()
+            runningViewModel.timerControl()
         }
 
         binding.endTournamentButton.setOnClickListener {
+            runningViewModel.endTournament()
             startActivity(Intent(this, HomeActivity::class.java))
 
         }
@@ -93,4 +103,6 @@ class TournamentRunningActivity : AppCompatActivity() {
         val seconds = value / 1000
         text = if (seconds < 60) seconds.toString() else DateUtils.formatElapsedTime(seconds)
     }
+
+
 }

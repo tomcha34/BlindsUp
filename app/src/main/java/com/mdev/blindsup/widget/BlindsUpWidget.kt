@@ -7,7 +7,9 @@ import android.os.CountDownTimer
 import android.os.SystemClock
 import android.util.Log
 import android.widget.RemoteViews
+import androidx.lifecycle.ViewModelProvider
 import com.mdev.blindsup.R
+import com.mdev.blindsup.ui.tournamentRunning.TournamentRunningViewModel
 
 /**
  * Implementation of App Widget functionality.
@@ -44,6 +46,8 @@ internal fun updateAppWidget(
     // Construct the RemoteViews object
     val views = RemoteViews(context.packageName, R.layout.blinds_up_widget)
     //views.setTextViewText(R.id.appwidget_text, widgetText)
+
+
 
 
 

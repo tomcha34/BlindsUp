@@ -27,7 +27,7 @@
     <string name="time_left_in_level">Time Left In Level</string>
     <string name="_0_00">0:00</string>
     <string name="end_tournament">End Tournament</string>
-    <string name="pause_tournament">Pause Tournament</string>
+    <string name="pause_tournament">Start Tournament</string>
     <string name="enter_your_username">Enter Your Username</string>
     <string name="enter_your_password">Enter Your Password</string>
     <string name="create_tournament">Create Tournament</string>

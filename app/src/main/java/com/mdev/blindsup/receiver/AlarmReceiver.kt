@@ -9,7 +9,7 @@ class AlarmReceiver : BroadcastReceiver() {
     override fun onReceive(p0: Context?, p1: Intent?) {
         val notification = BlindNotification()
         if (p0 != null) {
-            notification.triggerNotification("Blinds are now 50/100", p0)
+            notification.triggerNotification("Blinds are up!", p0)
         }
     }
 }
