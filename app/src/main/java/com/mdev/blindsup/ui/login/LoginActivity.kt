@@ -31,11 +31,6 @@ class LoginActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 
 
-        //Skip button navigates to the Home Screen
-        binding.skipButton.setOnClickListener {
-            startActivity(Intent(this, HomeActivity::class.java))
-        }
-
         // Configure Google Sign In
         val gso = GoogleSignInOptions
             .Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -119,6 +114,10 @@ class LoginActivity : AppCompatActivity() {
                 Log.w("Login", "Google sign in failed", e)
             }
         }
+    }
+
+    // Blocking access to loggedOut users
+    override fun onBackPressed() {
     }
 
 }

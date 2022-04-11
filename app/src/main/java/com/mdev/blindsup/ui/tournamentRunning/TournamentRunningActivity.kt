@@ -86,6 +86,7 @@ class TournamentRunningActivity : AppCompatActivity() {
 
         // a clicklistener to end the tournament
         binding.endTournamentButton.setOnClickListener {
+            runningViewModel.endTournament()
             startActivity(Intent(this, HomeActivity::class.java))
 
         }

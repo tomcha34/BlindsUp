@@ -51,64 +51,64 @@ internal fun updateAppWidget(
     //views.setTextViewText(R.id.appwidget_text, widgetText)
 
 
-var position = 0
-    var _smallBlind = 25
-    var _bigBlind = 50
-    var _nextBigBlind = 100
-    var _nextSmallBlind = 50
-    var timer : CountDownTimer
-    var _currentLevel = 1
-    var _nextLevel = 2
-    var triggerTime = SystemClock.elapsedRealtime() + 60_000L
-
-    views.setTextViewText(R.id.actualtimer, triggerTime.toString())
-
-    fun createTimer(view: View) {
-
-
-//        if (isNew) {
-//            isNew = false
-
-
-//        val triggerTime = SystemClock.elapsedRealtime() + userTimeSelection
-
-        // println(time)
-
-        timer = object : CountDownTimer(triggerTime, 1_000L) {
-            override fun onTick(p0: Long) {
-                triggerTime = triggerTime - SystemClock.elapsedRealtime()
-                //  millisecondLeft = _elapsedTime.value!!
-                //  println(elapsedTime)
-                if (triggerTime <= 0) {
-                //    resetTimer()
-                }
-            }
-
-            override fun onFinish() {
-              //  resetTimer()
-
-            }
-        }
-        timer.start()
-    }
-
-    fun resetTimer() {
-
-        position++
-        _smallBlind *= 2
-        _bigBlind *= 2
-        _nextSmallBlind = _smallBlind * 2
-        _nextBigBlind = _bigBlind * 2
-        _currentLevel = position + 1
-        _nextLevel = position + 2
-       // timer.cancel()
-
-        BlindNotification().triggerNotification(
-            "Blinds are now ${_smallBlind}/${_bigBlind}",
-            context
-        )
-     //   createTimer()
-    }
+//var position = 0
+//    var _smallBlind = 25
+//    var _bigBlind = 50
+//    var _nextBigBlind = 100
+//    var _nextSmallBlind = 50
+//    var timer : CountDownTimer
+//    var _currentLevel = 1
+//    var _nextLevel = 2
+//    var triggerTime = SystemClock.elapsedRealtime() + 60_000L
+//
+//    views.setTextViewText(R.id.actualtimer, triggerTime.toString())
+//
+//    fun createTimer(view: View) {
+//
+//
+////        if (isNew) {
+////            isNew = false
+//
+//
+////        val triggerTime = SystemClock.elapsedRealtime() + userTimeSelection
+//
+//        // println(time)
+//
+//        timer = object : CountDownTimer(triggerTime, 1_000L) {
+//            override fun onTick(p0: Long) {
+//                triggerTime = triggerTime - SystemClock.elapsedRealtime()
+//                //  millisecondLeft = _elapsedTime.value!!
+//                //  println(elapsedTime)
+//                if (triggerTime <= 0) {
+//                //    resetTimer()
+//                }
+//            }
+//
+//            override fun onFinish() {
+//              //  resetTimer()
+//
+//            }
+//        }
+//        timer.start()
+//    }
+//
+//    fun resetTimer() {
+//
+//        position++
+//        _smallBlind *= 2
+//        _bigBlind *= 2
+//        _nextSmallBlind = _smallBlind * 2
+//        _nextBigBlind = _bigBlind * 2
+//        _currentLevel = position + 1
+//        _nextLevel = position + 2
+//       // timer.cancel()
+//
+//        BlindNotification().triggerNotification(
+//            "Blinds are now ${_smallBlind}/${_bigBlind}",
+//            context
+//        )
+//     //   createTimer()
+//    }
 
 
 
