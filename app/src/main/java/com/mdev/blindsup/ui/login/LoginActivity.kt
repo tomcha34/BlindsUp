@@ -19,23 +19,21 @@ import com.google.firebase.ktx.Firebase
 import com.mdev.blindsup.R
 import com.mdev.blindsup.databinding.ActivityLoginBinding
 import com.mdev.blindsup.ui.home.HomeActivity
-import com.mdev.blindsup.ui.signup.SignupActivity
 
+const val RC_SIGN_IN = 123
 class LoginActivity : AppCompatActivity() {
     //making a global variable for DataBinding
-    private lateinit var binding : ActivityLoginBinding
+    private lateinit var binding: ActivityLoginBinding
     lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //initializing the binding object to my view
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
 
-//        binding.logInButton.setOnClickListener {
-//            startActivity(Intent(this, HomeActivity::class.java))
-//        }
 
-        binding.signUpButton.setOnClickListener {
-            startActivity(Intent(this, SignupActivity::class.java))
+        //Skip button navigates to the Home Screen
+        binding.skipButton.setOnClickListener {
+            startActivity(Intent(this, HomeActivity::class.java))
         }
 
         // Configure Google Sign In
@@ -52,7 +50,6 @@ class LoginActivity : AppCompatActivity() {
         // Initialize Firebase Auth
         auth = Firebase.auth
 
-        //The GoodleButton for login
 
         //When clicked it will start an intent for the user to login via Google
         binding.logInButton.setOnClickListener {
@@ -60,12 +57,9 @@ class LoginActivity : AppCompatActivity() {
             startActivityForResult(signInIntent, RC_SIGN_IN)
         }
 
-        //Get the information for user if already signed in
-        val acct = GoogleSignIn.getLastSignedInAccount(this)
-
 
         //If the user is already signed into the app, go straight to the
-        //HomeFragment and pass the users name as a parameter to HomeFragment.
+        //HomeScreen
         if (auth.currentUser != null) {
 
             startActivity(Intent(this, HomeActivity::class.java))
@@ -113,8 +107,7 @@ class LoginActivity : AppCompatActivity() {
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
+            // The Task returned from this call is always completed.
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 // Google Sign In was successful, authenticate with Firebase
@@ -128,6 +121,4 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-
-
-    }
+}

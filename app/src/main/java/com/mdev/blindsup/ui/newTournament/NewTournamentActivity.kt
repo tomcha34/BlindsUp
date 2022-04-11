@@ -14,43 +14,50 @@ class NewTournamentActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewTournamentBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //initializing the binding utility
         binding = DataBindingUtil.setContentView(this, R.layout.activity_new_tournament)
 
-            val newTournamentViewModel =
-                ViewModelProvider(this).get(NewTournamentViewModel::class.java)
+        //getting an instance of our viewModel via ViewModelProvider
+        val newTournamentViewModel =
+            ViewModelProvider(this).get(NewTournamentViewModel::class.java)
 
-            val validationList = arrayListOf(
-                binding.blindLevelInputLayout,
-                binding.nicknameInputLayout,
-                binding.startingStackInputLayout,
-                binding.smallestChipInputLayout
-            )
-            binding.createTournamentButton.setOnClickListener {
+        //This is a list for editText validation
+        val validationList = arrayListOf(
+            binding.blindLevelInputLayout,
+            binding.nicknameInputLayout,
+            binding.startingStackInputLayout,
+            binding.smallestChipInputLayout
+        )
+        //OnClickListener for creating a new tournament
+        binding.createTournamentButton.setOnClickListener {
 
-                if (binding.blindLevelEditText.text.isNullOrEmpty() || binding.nicknameEditText.text.isNullOrEmpty() ||
-                    binding.startingStackEditText.text.isNullOrEmpty() || binding.smalledChipEditText.text.isNullOrEmpty()
-                ) {
-                    for (fields in validationList) {
-                        if (fields.editText?.text.isNullOrEmpty()) {
-                            fields.error = "Field must not be empty"
-                        } else {
-                            fields.error = null
-                        }
+            //If any fields are empty, don't allow a save and let user know.
+            if (binding.blindLevelEditText.text.isNullOrEmpty() || binding.nicknameEditText.text.isNullOrEmpty() ||
+                binding.startingStackEditText.text.isNullOrEmpty() || binding.smalledChipEditText.text.isNullOrEmpty()
+            ) {
+                for (fields in validationList) {
+                    if (fields.editText?.text.isNullOrEmpty()) {
+                        fields.error = "Field must not be empty"
+                    } else {
+                        fields.error = null
                     }
-                } else {
-
-
-                    newTournamentViewModel.createTournament(
-                        binding.nicknameEditText.text.toString(),
-                        binding.blindLevelEditText.text.toString().toLong(),
-                        binding.startingStackEditText.text.toString().toInt(),
-                        binding.smalledChipEditText.text.toString().toInt(),
-                        this
-                    )
-                    val intent = Intent(this, SavedTournamentActivity::class.java)
-                    startActivity(intent)
                 }
+            } else {
+
+
+                //If all fields are filled in, create the new tournament
+                newTournamentViewModel.createTournament(
+                    binding.nicknameEditText.text.toString(),
+                    binding.blindLevelEditText.text.toString().toLong(),
+                    binding.startingStackEditText.text.toString().toInt(),
+                    binding.smalledChipEditText.text.toString().toInt(),
+                    this
+                )
+                //Navigate to the SavedTournamentActivity
+                val intent = Intent(this, SavedTournamentActivity::class.java)
+                startActivity(intent)
             }
+        }
 
 
     }
