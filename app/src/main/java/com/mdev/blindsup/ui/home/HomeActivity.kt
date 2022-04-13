@@ -1,12 +1,11 @@
 package com.mdev.blindsup.ui.home
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.material.snackbar.Snackbar
 import com.mdev.blindsup.R
 import com.mdev.blindsup.databinding.ActivityHomeBinding
 import com.mdev.blindsup.ui.login.LoginActivity

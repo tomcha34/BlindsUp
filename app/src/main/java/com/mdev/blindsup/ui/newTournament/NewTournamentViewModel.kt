@@ -8,7 +8,7 @@ import com.google.firebase.database.FirebaseDatabase
 
 import com.mdev.blindsup.data.TournamentData
 
-class NewTournamentViewModel (private val app: Application) : AndroidViewModel(app) {
+class NewTournamentViewModel (app: Application) : AndroidViewModel(app) {
   var id : String? = ""
 
   //A function to save a new tournament to Firebase Realtime Database
@@ -17,7 +17,7 @@ class NewTournamentViewModel (private val app: Application) : AndroidViewModel(a
     //Get the signed in user to make a unique path for the data
     val acct = GoogleSignIn.getLastSignedInAccount(context)
     //Get a reference to the database path including thr logged in users ID.
-    val  databaseBlinds = FirebaseDatabase.getInstance().getReference("Users/${acct.id}/Blinds")
+    val  databaseBlinds = FirebaseDatabase.getInstance().getReference("Users/${acct!!.id}/Blinds")
     //create a unique id for the saved tournament
     id = databaseBlinds.push().key
     val blind =

@@ -1,14 +1,13 @@
 package com.mdev.blindsup.ui.newTournament
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.mdev.blindsup.R
 import com.mdev.blindsup.databinding.ActivityNewTournamentBinding
 import com.mdev.blindsup.ui.savedTournament.SavedTournamentActivity
-import com.mdev.blindsup.ui.tournamentRunning.TournamentRunningActivity
 
 class NewTournamentActivity : AppCompatActivity() {
     private lateinit var binding: ActivityNewTournamentBinding

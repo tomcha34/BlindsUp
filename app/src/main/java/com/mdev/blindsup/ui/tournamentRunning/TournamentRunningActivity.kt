@@ -11,13 +11,12 @@ import android.text.format.DateUtils
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.mdev.blindsup.R
 import com.mdev.blindsup.data.Constants
 import com.mdev.blindsup.databinding.ActivityTournamentRunningBinding
+import com.mdev.blindsup.notifications.BlindNotification
 import com.mdev.blindsup.ui.home.HomeActivity
-import kotlin.concurrent.timer
 
 class TournamentRunningActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTournamentRunningBinding
@@ -32,7 +31,8 @@ class TournamentRunningActivity : AppCompatActivity() {
 
         //initialize our viewModel via ViewModelProvider
         val runningViewModel = ViewModelProvider(this).get(
-            TournamentRunningViewModel::class.java)
+            TournamentRunningViewModel::class.java
+        )
 
         // Retrieve the position clicked from the SavedTournamentActivity
         val savedTournament = intent.getIntExtra(Constants().SAVED_SELECTION, 0)
@@ -53,19 +53,17 @@ class TournamentRunningActivity : AppCompatActivity() {
         })
 
         // Observing Livedata for our smallBlind, and showing it in our UI
-        runningViewModel.smallBlind.observe(this, {
-            val small = it
+        runningViewModel.smallBlind.observe(this, { small ->
             // Observing Livedata for our bigBlind, and showing it in our UI
-            runningViewModel.bigBlind.observe(this, {
-                binding.currentBlindsTextView.text = "Blinds: $small/$it"
+            runningViewModel.bigBlind.observe(this, { big ->
+                binding.currentBlindsTextView.text = "Blinds: $small/$big"
             })
         })
         // Observing Livedata for our next level smallBlind, and showing it in our UI
-        runningViewModel.nextSmallBlind.observe(this, {
-            val nextSmall = it
+        runningViewModel.nextSmallBlind.observe(this, { nextSmall ->
             // Observing Livedata for our next level smallBlind, and showing it in our UI
-            runningViewModel.nextBigBlind.observe(this, {
-                binding.nextBlindsTextView.text = "Blinds: $nextSmall/$it"
+            runningViewModel.nextBigBlind.observe(this, { nextBig ->
+                binding.nextBlindsTextView.text = "Next Blinds: $nextSmall/$nextBig"
             })
         })
 
@@ -95,17 +93,17 @@ class TournamentRunningActivity : AppCompatActivity() {
 
     // A function to create a notification channel as it is required
     // in android versions "O" and above
-    fun createChannel() {
+    private fun createChannel() {
         val notificationManager =
             this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val CHANNEL_ID: String
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CHANNEL_ID = "my_channel_01"
-            val name: CharSequence = "my_channel"
-            val description = "This is my channel"
-            val importance = NotificationManager.IMPORTANCE_HIGH
-            val mChannel = NotificationChannel(CHANNEL_ID, name, importance)
-            mChannel.description = description
+            val mChannel = NotificationChannel(
+                Constants().CHANNEL_ID,
+                Constants().CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_HIGH
+            )
+            mChannel.description = "Blinds notification"
             mChannel.enableLights(true)
             mChannel.lightColor = Color.RED
             mChannel.enableVibration(true)
@@ -113,10 +111,10 @@ class TournamentRunningActivity : AppCompatActivity() {
         }
     }
 
-    //This is an extention function built off of TextView
+    //This is an extension function built off of TextView
     // it's purpose is to show full minutes and seconds in the proper format
     // that a user would expect is a countdown timer.
-    fun TextView.setElapsedTime(value: Long) {
+    private fun TextView.setElapsedTime(value: Long) {
         val seconds = value / 1000
         text = if (seconds < 60) seconds.toString() else DateUtils.formatElapsedTime(seconds)
     }

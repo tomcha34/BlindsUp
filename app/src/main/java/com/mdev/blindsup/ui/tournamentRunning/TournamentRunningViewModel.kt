@@ -1,11 +1,7 @@
 package com.mdev.blindsup.ui.tournamentRunning
 
-import android.app.AlarmManager
 import android.app.Application
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
-import android.content.SharedPreferences
 import android.os.CountDownTimer
 import android.os.SystemClock
 import android.util.Log
@@ -19,7 +15,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
-
 import com.mdev.blindsup.data.TournamentData
 import com.mdev.blindsup.notifications.BlindNotification
 
@@ -42,7 +37,7 @@ class TournamentRunningViewModel(private val app: Application) : AndroidViewMode
     private var isPaused = false
 
     // A boolean to handle the beginning of the tournament
-    var isNew = true
+    private var isNew = true
 
     // a value to track remaining time in the current blind level
     private var millisecondLeft = 0L
@@ -197,13 +192,13 @@ class TournamentRunningViewModel(private val app: Application) : AndroidViewMode
         val auth = Firebase.auth
         if (auth.currentUser != null) {
             val databaseBlinds =
-                FirebaseDatabase.getInstance().getReference("Users/${acct.id}/Blinds")
+                FirebaseDatabase.getInstance().getReference("Users/${acct!!.id}/Blinds")
 
             databaseBlinds.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
                         for (blindsSnapshot in snapshot.children) {
-                            var userBlinds = blindsSnapshot.getValue(TournamentData::class.java)
+                            val userBlinds = blindsSnapshot.getValue(TournamentData::class.java)
                             userBlinds?.id = blindsSnapshot.key
 
 

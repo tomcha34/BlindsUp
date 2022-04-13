@@ -147,6 +147,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <CheckBox
+            android:visibility="gone"
             android:id="@+id/anteCheckBox"
             style="@style/blind_text_style"
             android:layout_width="wrap_content"

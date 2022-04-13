@@ -1,16 +1,13 @@
 package com.mdev.blindsup.ui.savedTournament
 
 import android.app.Application
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
-import com.mdev.blindsup.adapter.SavedTournamentAdapter
 import com.mdev.blindsup.data.TournamentData
 
 private const val TAG = "SavedTournamentViewMode"
@@ -20,7 +17,7 @@ class SavedTournamentViewModel(app: Application) : AndroidViewModel(app) {
 
 //    var blindsList = mutableListOf<TournamentData>()
    // create an instance of your firebase database
-    var databaseBlinds: DatabaseReference
+private var databaseBlinds: DatabaseReference
     //create Livedata to populate our saved tournaments.
     val blinds = MutableLiveData<MutableList<TournamentData>>()
 
@@ -28,7 +25,8 @@ class SavedTournamentViewModel(app: Application) : AndroidViewModel(app) {
     //An initializer block to set our google and database references
     init {
         val acct = GoogleSignIn.getLastSignedInAccount(app)
-        databaseBlinds = FirebaseDatabase.getInstance().getReference("Users/${acct.id}/Blinds")
+        //It's impossible to be in this part of the app without acct having value, so I will set acct as !!
+        databaseBlinds = FirebaseDatabase.getInstance().getReference("Users/${acct!!.id}/Blinds")
 
         //run our load tournament function
         loadSavedTournaments()
@@ -37,7 +35,7 @@ class SavedTournamentViewModel(app: Application) : AndroidViewModel(app) {
 
     // A function to load all the saved user tournaments from Firebase
     // and load them into a livedata list to show in our recyclerView
-    fun loadSavedTournaments() {
+    private fun loadSavedTournaments() {
      //Initialize out liveData list as an empty mutable list
      blinds.value = mutableListOf()
         val auth = Firebase.auth
@@ -53,7 +51,7 @@ class SavedTournamentViewModel(app: Application) : AndroidViewModel(app) {
 
                         val getData = mutableListOf<TournamentData>()
                         for (blindsSnapshot in snapshot.children) {
-                            var userBlinds = blindsSnapshot.getValue(TournamentData::class.java)
+                            val userBlinds = blindsSnapshot.getValue(TournamentData::class.java)
                             userBlinds?.id = blindsSnapshot.key
 
                             //Save each session for the for loop to our liveData object
@@ -76,14 +74,16 @@ class SavedTournamentViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-//    fun deleteTournament(position: Int) {
-////Getting the path of the session to delete
-//        val tournamentToDelete = blindsList[position!!].id
-//
-//        //deleting the session
-//        if (tournamentToDelete != null) {
-//            databaseBlinds.child(tournamentToDelete).removeValue()
-//        }
-//        blindsList.removeAt(position)
-//    }
+    //A function to remove a Saved Tournament
+    fun deleteTournament(position: Int) {
+        //Getting the path of the session to delete
+        val tournamentToDelete = blinds.value?.get(position)?.id
+
+        //deleting the session
+        if (tournamentToDelete != null) {
+            databaseBlinds.child(tournamentToDelete).removeValue()
+        }
+        //Updating the livedata
+        blinds.value?.removeAt(position)
+    }
 }

@@ -30,18 +30,20 @@
             <TextView
                 android:id="@+id/currentLevelTextView"
                 style="@style/blind_text_style"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/current_level_1"
+                android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="34sp" />
 
             <TextView
                 android:id="@+id/currentBlindsTextView"
                 style="@style/blind_text_style"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/blinds_25_50"
+                android:textAlignment="center"
                 android:textColor="#000000"
                 android:textSize="34sp" />
 
@@ -61,17 +63,19 @@
             <TextView
                 android:id="@+id/nextLevelTextView"
                 style="@style/blind_text_style"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/next_level_2"
+                android:textAlignment="center"
                 android:textSize="34sp" />
 
             <TextView
                 android:id="@+id/nextBlindsTextView"
                 style="@style/blind_text_style"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/blinds_50_100"
+                android:textAlignment="center"
                 android:textSize="34sp" />
         </LinearLayout>
 
@@ -89,9 +93,10 @@
         <TextView
             android:id="@+id/titleTimeTextView"
             style="@style/blind_text_style"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/time_left_in_level"
+            android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="40sp"
             app:layout_constraintBottom_toTopOf="@+id/timeLeftTextView"

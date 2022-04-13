@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -24,7 +26,7 @@ const val RC_SIGN_IN = 123
 class LoginActivity : AppCompatActivity() {
     //making a global variable for DataBinding
     private lateinit var binding: ActivityLoginBinding
-    lateinit var auth: FirebaseAuth
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         //initializing the binding object to my view
@@ -44,6 +46,8 @@ class LoginActivity : AppCompatActivity() {
 
         // Initialize Firebase Auth
         auth = Firebase.auth
+        val animation: Animation = AnimationUtils.loadAnimation(this, R.anim.intro)
+        binding.logo.startAnimation(animation)
 
 
         //When clicked it will start an intent for the user to login via Google
@@ -83,9 +87,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     //Change UI according to user data.
-    fun updateUI(account: FirebaseUser?) {
+    private fun updateUI(account: FirebaseUser?) {
         if (account != null) {
-            val acct = GoogleSignIn.getLastSignedInAccount(this)
+            GoogleSignIn.getLastSignedInAccount(this)
             Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show()
             startActivity(Intent(this, HomeActivity::class.java))
 
